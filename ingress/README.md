@@ -1,3 +1,4 @@
+[back](../README.md)
 # Ingress Controllers
 An ingress controller is essentially a proxy that can route calls to various services within our cluster without having to expose them all individually i.e. we only have to create one external IP address, one host etc.
 
@@ -5,8 +6,8 @@ In this example we will add an nginx Ingress Controller and configure ingress fo
 N.B. There are a couple of Argo specific things, but this can largely be applied to other applications
 
 ## Pre-requisites
-- Azure CLI is installed
-- Successfully configured kubectl to connect to Azure
+A successfully configured kubectl. 
+See [here](../docs/installK8s.md)
 
 ## Guide
 
@@ -18,7 +19,7 @@ nginx controller is configured and deployed via helm
 - `helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx`
 - `helm repo update`
 
-### Install the controller
+### Install the controller (Azure)
 - Ensure you're logged in to Azure `az login`
 - Use of a static IP is assumed with an entry in DNS Zone that points to it e.g. (for illustrative purposes) *ci.nimbleapproach.com*
 - You can create a static IP with the following command example:
@@ -37,7 +38,7 @@ helm install ingress-nginx ingress-nginx/ingress-nginx \
 - Controller will be created in the *ingress-ctl* namespace
 - This will give us the host *https://ci.nimbleapproach.com* as the address of the controller, navigating there should give us an nginx 404 page
 - *enable-ssl-passthrough* is required for Argo
-- Controller must also must not run on Windows (apparently)
+- Controller must also not run on Windows (apparently)
 
 ### Add ingress for Argo
 Controllers, also apparently, by default, can find Ingress entries on other namespaces, so we simply add an ingress definition in the argocd namespace
@@ -93,3 +94,5 @@ Azure does have an inbuilt ingress controller that I'll briefly touch on here, i
 - Define an Ingress as we have done for nginx, except the ingressClass is now *azure/application-gateway*, routes in the gateway should be automatically updated
 
 *TODO does this work with oauth2-proxy or can it even do it itself*
+
+  [back](../README.md)
