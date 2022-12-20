@@ -25,12 +25,30 @@ do
 done
 echo "MY_ARGO_PWD is $MY_ARGO_PWD"
 
-echo "****************** getting ArgoCD IP ******************"
-which jq || brew install jq
-export MY_ARGO_IP=$(kubectl -n "$MY_ARGO_NAMESPACE" get svc argocd-server -o json | jq '.status.loadBalancer.ingress | .[].ip' | tr -d '"')
-echo "MY_ARGO_IP is $MY_ARGO_IP"
+function doArgoLogin() {
+  
+  echo "****************** getting ArgoCD IP ******************"
+  which jq || brew install jq
+  # export MY_ARGO_IP=$(kubectl -n "$MY_ARGO_NAMESPACE" get svc argocd-server -o json | jq '.status.loadBalancer.ingress | .[].ip' | tr -d '"')
+  
+  export MY_ARGO_IP=$(kubectl get svc argocd-server -o json | jq '.status.loadBalancer.ingress | .[].ip' | tr -d '"')
+  echo "MY_ARGO_IP is $MY_ARGO_IP"
 
-echo "****************** log in to ArgoCD $MY_ARGO_IP w/ user admin, pwd $MY_ARGO_PWD ******************"
-argocd login "$MY_ARGO_IP" --password "$MY_ARGO_PWD" --username admin --insecure
+  echo "****************** log in to ArgoCD $MY_ARGO_IP w/ user admin, pwd $MY_ARGO_PWD ******************"
+  argocd login "$MY_ARGO_IP" --password "$MY_ARGO_PWD" --username admin --insecure
 
-echo "open https://$MY_ARGO_IP"
+  echo "open https://$MY_ARGO_IP"
+
+}
+
+function checkArgoLogin() {
+  argocd account get
+}
+retVal=$?
+echo "check argo login returned $retVal"
+if [ $retVal -ne 0 ]; then
+    doArgoLogin()
+else
+    echo "already logged into argo"
+fi
+

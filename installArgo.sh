@@ -3,7 +3,7 @@
 source args.sh "$@"
 
 echo "****************** installing ArgoCD ******************"
-brew install argocd
+which argocd || brew install argocd
 kubectl create namespace "$MY_ARGO_NAMESPACE"
 kubectl apply -n "$MY_ARGO_NAMESPACE" -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl patch svc argocd-server -n "$MY_ARGO_NAMESPACE" -p '{"spec": {"type": "LoadBalancer"}}'
@@ -26,11 +26,14 @@ do
 done
 echo "MY_ARGO_PWD is $MY_ARGO_PWD"
 
-echo "****************** getting ArgoCD IP ******************"
-which jq || brew install jq
-export MY_ARGO_IP=$(kubectl -n "$MY_ARGO_NAMESPACE" get svc argocd-server -o json | jq '.status.loadBalancer.ingress | .[].ip' | tr -d '"')
-echo "MY_ARGO_IP is $MY_ARGO_IP"
 
-echo "****************** log in to ArgoCD $MY_ARGO_IP w/ user admin, pwd $MY_ARGO_PWD ******************"
-argocd login "$MY_ARGO_IP" --password "$MY_ARGO_PWD" --username admin --insecure
-open "https://$MY_ARGO_IP"
+function openArgo() {
+  echo "*********?????********* getting ArgoCD IP ******************"
+  which jq || brew install jq
+  export MY_ARGO_IP=$(kubectl -n "$MY_ARGO_NAMESPACE" get svc argocd-server -o json | jq '.status.loadBalancer.ingress | .[].ip' | tr -d '"')
+  echo "MY_ARGO_IP is $MY_ARGO_IP"
+
+  echo "****************** log in to ArgoCD $MY_ARGO_IP w/ user admin, pwd $MY_ARGO_PWD ******************"
+  argocd login "$MY_ARGO_IP" --password "$MY_ARGO_PWD" --username admin --insecure
+  open "https://$MY_ARGO_IP"
+}
