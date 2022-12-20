@@ -15,6 +15,11 @@ kubectl config use-context tutorial@ebg-test.eu-west-2.eksctl.io
 
 ```
 
+# Namespaces
+
+```
+kubectl config set-context --current --namespace=my-namespace
+```
 
 # Services
 

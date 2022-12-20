@@ -6,6 +6,7 @@ see https://www.youtube.com/watch?v=p6xDCz00TxU
 ```
 export CLUSTER_NAME=ebg-test
 export AWS_REGION=eu-west-2
+export NODE_TYPE="t3.small"
 ```
 
 # install eksctl
@@ -17,7 +18,7 @@ brew install weaveworks/tap/eksctl
 ## Create Cluster
 ```
  
- eksctl create cluster --name $CLUSTER_NAME --region $AWS_REGION --nodegroup-name ${CLUSTER_NAME}-nodes --node-type t2.micro --nodes 2
+ eksctl create cluster --name $CLUSTER_NAME --region $AWS_REGION --nodegroup-name ${CLUSTER_NAME}-nodes --node-type $NODE_TYPE --nodes 2
  
 ```
 
