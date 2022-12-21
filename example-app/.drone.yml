@@ -16,7 +16,7 @@ steps:
       from_secret: acr_user
     password:
       from_secret: acr_pass
-    repo: paulsregistry80.azurecr.io/node-test
+    repo: https://github.com/easy-being-green/argo-drone
     auto_tag: true
   when:
     event:

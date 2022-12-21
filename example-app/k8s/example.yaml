@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example
+  namespace: example-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      stack: example
+  template:
+    metadata:
+      labels:
+        stack: example
+    spec:
+      containers:
+      - name: example-pod
+        image: easybeinggreenuk/example:b22f11c
+        imagePullPolicy: IfNotPresent
+        # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+  namespace: example-test
+spec:
+  type: LoadBalancer
+  selector:
+    stack: example
+  ports:
+  - name : default
+    port: 8080
+    targetPort: 8080

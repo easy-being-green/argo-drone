@@ -10,8 +10,8 @@ Ideally this is done using a separate infrastructure-as-code pipeline to create 
 
 ### Set up Kubernetes  
 * [On Azure](azure-aks.md)
-* On AWS (TODO)
+* On AWS (in progress)
 * On GCP (TODO)
-* Locally (TODO)
+* Locally (in progress)
 
 You should now have a running/working `kubectl`
