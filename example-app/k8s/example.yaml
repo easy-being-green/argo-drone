@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
       - name: example-pod
-        image: easybeinggreenuk/example:b22f11c
-        imagePullPolicy: IfNotPresent
+        image: easybeinggreenuk/example:latest
+        imagePullPolicy: Always
         # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         resources:
           limits:
