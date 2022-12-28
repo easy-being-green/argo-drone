@@ -23,6 +23,7 @@ tag() {
 
 publish() {
     docker push "$ORG/$NAME:$VERSION"
+    docker push "$ORG/$NAME:latest"
 }
 
 # assumes argo login
