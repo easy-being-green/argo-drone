@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: example-pod
-        image: httpd:2.4
+        image: ophan/dashboard:0.1.2
         imagePullPolicy: Always
         # https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         resources:
