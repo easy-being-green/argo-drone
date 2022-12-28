@@ -26,11 +26,12 @@ publish() {
 
 # assumes argo login
 argoCreate() {
-    
+    kubectl get namespace "$NS" || (echo "creating namespace $NS" && kubectl create namespace "$NS")
+
     argocd app create "$NAME" \
         --repo "$REPO" \
         --path example-app/k8s \
-        --dest-namespace $NS \
+        --dest-namespace "$NS" \
         --dest-server https://kubernetes.default.svc \
         --auto-prune \
         --self-heal \

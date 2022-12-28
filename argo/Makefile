@@ -7,6 +7,7 @@ getArgoPwd: install
 login: portForward 
 	source argo.sh && login
 # kubectl port-forward 8080 to argo 443
+# usage:  make portForward ARGO_PORT=8090
 portForward:
 	source argo.sh && portForward
 deleteArgo:

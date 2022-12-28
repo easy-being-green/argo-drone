@@ -4,7 +4,7 @@ tag: build
 	source ./build.sh && tag
 publish: tag
 	source ./build.sh && publish
-argoCreate: argoLogin
+argoCreate:
 	source ./build.sh && argoCreate
 argoLogin:
 	source ../argo/argo.sh && login
