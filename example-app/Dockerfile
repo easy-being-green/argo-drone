@@ -1,4 +1,4 @@
-FROM node:19-alpine3.16
+FROM node:current-alpine3.17
 ADD app.js /app.js
 EXPOSE 8080
 ENTRYPOINT ["node", "app.js"]
