@@ -18,6 +18,7 @@ run() {
 
 tag() {
     docker tag "$NAME" "$ORG/$NAME:$VERSION"
+    docker tag "$ORG/$NAME:$VERSION" "$ORG/$NAME:latest"
 }
 
 publish() {
