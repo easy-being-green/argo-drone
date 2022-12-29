@@ -1,11 +1,7 @@
-build:
+publish:
 	source ./build.sh && build
-tag: build
-	source ./build.sh && tag
-run: build
+run:
 	source ./build.sh && run
-publish: tag
-	source ./build.sh && publish
 argoCreate:
 	source ./build.sh && argoCreate
 argoLogin:

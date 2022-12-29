@@ -9,21 +9,11 @@ export REPO=${REPO:-https://github.com/easy-being-green/argo-drone.git}
 export NS=${NS:-example-test}
 
 build() {
-    docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7  . -t "$NAME"
+    docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7  . -t "$ORG/$NAME:$VERSION" -t "$ORG/$NAME:latest" --push
 }
 
 run() {
     docker run -p 80:8080 -d "$NAME"
-}
-
-tag() {
-    docker tag "$NAME" "$ORG/$NAME:$VERSION"
-    docker tag "$ORG/$NAME:$VERSION" "$ORG/$NAME:latest"
-}
-
-publish() {
-    docker push "$ORG/$NAME:$VERSION"
-    docker push "$ORG/$NAME:latest"
 }
 
 # assumes argo login
