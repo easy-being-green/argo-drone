@@ -1,5 +1,5 @@
 # installs argo on k8s (assumes/uses kubectl)
-install: init
+install: init portForward
 	source argo.sh && installArgo
 # captures the argo admin pwd in MY_ARGO_PWD
 getArgoPwd: install

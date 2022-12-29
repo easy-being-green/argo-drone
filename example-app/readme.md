@@ -11,6 +11,20 @@ e.g.
 make publish
 ```
 
+# Targeting multiple platforms
+
+Initially this example app worked on my arm MacBook, but failed on the K8S clusters. 
+Note: This wouldn't be such a problem if we were using a CI pipeline which matched the platform architectures, but I was building/publishing from my dev box
+
+I followed [this](https://docs.docker.com/build/building/multi-platform/) to change the `docker build`
+
+```
+docker buildx create --name mybuilder --driver docker-container --bootstrap --use
+```
+
+To check/confirm, use `docker buildx inspect`
+
+
 
 ## K8S
 

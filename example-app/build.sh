@@ -9,7 +9,7 @@ export REPO=${REPO:-https://github.com/easy-being-green/argo-drone.git}
 export NS=${NS:-example-test}
 
 build() {
-    docker build . -t "$NAME"
+    docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7  . -t "$NAME"
 }
 
 run() {
