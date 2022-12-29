@@ -4,7 +4,7 @@ metadata:
   name: example
   namespace: example-test
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       stack: example
@@ -30,6 +30,7 @@ metadata:
   namespace: example-test
 spec:
   type: LoadBalancer
+  sessionAffinity: None
   selector:
     stack: example
   ports:
